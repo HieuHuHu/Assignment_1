@@ -1,0 +1,62 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "Introduction to Node.js",
+      "content": "Node.js is a JavaScript runtime environment.",
+      "author": "Nguyen Van A",
+      "date": "2026-09-01"
+    },
+    {
+      "id": 2,
+      "title": "Getting Started with Express",
+      "content": "Express is a web framework for Node.js.",
+      "author": "Tran Thi B",
+      "date": "2026-09-02"
+    },
+    {
+      "id": 3,
+      "title": "Understanding REST API",
+      "content": "REST API allows applications to communicate through HTTP.",
+      "author": "Le Van C",
+      "date": "2026-09-03"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "articleId": 1,
+      "author": "Pham Thi D",
+      "content": "This is a useful introduction to Node.js.",
+      "date": "2026-09-04"
+    },
+    {
+      "id": 2,
+      "articleId": 1,
+      "author": "Hoang Van E",
+      "content": "I would like to learn more about Node.js.",
+      "date": "2026-09-04"
+    },
+    {
+      "id": 3,
+      "articleId": 2,
+      "author": "Nguyen Van F",
+      "content": "Express makes building APIs easier.",
+      "date": "2026-09-05"
+    },
+    {
+      "id": 4,
+      "articleId": 2,
+      "author": "Tran Thi G",
+      "content": "The routing example is easy to understand.",
+      "date": "2026-09-05"
+    },
+    {
+      "id": 5,
+      "articleId": 3,
+      "author": "Le Thi H",
+      "content": "REST API is an important topic for backend development.",
+      "date": "2026-09-06"
+    }
+  ]
+}
