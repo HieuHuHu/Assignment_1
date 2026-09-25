@@ -1,7 +1,7 @@
 const express = require('express');
 const articleRouter = require('./routes/articleRouter');
 const commentRouter = require('./routes/commentRouter');
-const articleCommentRouter = require('./routes/articleCommentRouter');
+const { readData, getId } = require('./dataStore');
 
 const app = express();
 const port = 3000;
@@ -9,8 +9,18 @@ const port = 3000;
 app.use(express.json());
 app.use('/articles', articleRouter);
 app.use('/comments', commentRouter);
-app.use('/article', articleCommentRouter);
-app.use('/articles', articleCommentRouter);
+
+app.get('/article/:id/comments', async (req, res) => {
+    const articleId = getId(req.params.id);
+    const data = await readData();
+    const articleExists = articleId !== null && data.articles.some((article) => article.id === articleId);
+
+    if (!articleExists) {
+        return res.status(404).json({ message: 'Article not found' });
+    }
+
+    res.status(200).json(data.comments.filter((comment) => comment.articleId === articleId));
+});
 
 app.get('/', (req, res) => {
     res.status(200).json({

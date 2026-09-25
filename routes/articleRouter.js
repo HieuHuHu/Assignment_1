@@ -1,5 +1,5 @@
 const express = require('express');
-const { readData, writeData, getId } = require('./dataStore');
+const { readData, writeData, getId } = require('../dataStore');
 
 const router = express.Router();
 
@@ -26,6 +26,19 @@ router.get('/:id', async (req, res) => {
 	}
 
 	res.status(200).json(article);
+});
+
+router.get('/:id/comments', async (req, res) => {
+	const articleId = getId(req.params.id);
+	const data = await readData();
+	const articleExists = articleId !== null && data.articles.some((article) => article.id === articleId);
+
+	if (!articleExists) {
+		return res.status(404).json({ message: 'Article not found' });
+	}
+
+	const comments = data.comments.filter((comment) => comment.articleId === articleId);
+	res.status(200).json(comments);
 });
 
 router.post('/', async (req, res) => {
@@ -68,6 +81,31 @@ router.put('/:id', async (req, res) => {
 		title: req.body.title.trim(),
 		content: req.body.content.trim()
 	};
+	data.articles[articleIndex] = updatedArticle;
+	await writeData(data);
+	res.status(200).json(updatedArticle);
+});
+
+router.patch('/:id', async (req, res) => {
+	const id = getId(req.params.id);
+	const data = await readData();
+	const articleIndex = id === null ? -1 : data.articles.findIndex((article) => article.id === id);
+	if (articleIndex === -1) {
+		return res.status(404).json({ message: 'Article not found' });
+	}
+
+	const updatedArticle = {
+		...data.articles[articleIndex],
+		...req.body,
+		id
+	};
+	const validationError = validateArticleBody(updatedArticle);
+	if (validationError) {
+		return res.status(400).json({ message: validationError });
+	}
+
+	updatedArticle.title = updatedArticle.title.trim();
+	updatedArticle.content = updatedArticle.content.trim();
 	data.articles[articleIndex] = updatedArticle;
 	await writeData(data);
 	res.status(200).json(updatedArticle);

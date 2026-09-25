@@ -1,5 +1,5 @@
 const express = require('express');
-const { readData, writeData, getId } = require('./dataStore');
+const { readData, writeData, getId } = require('../dataStore');
 
 const router = express.Router();
 
@@ -72,6 +72,32 @@ router.put('/:id', async (req, res) => {
 		content: req.body.content.trim(),
 		date: req.body.date.trim()
 	};
+	data.comments[commentIndex] = updatedComment;
+	await writeData(data);
+	res.status(200).json(updatedComment);
+});
+
+router.patch('/:id', async (req, res) => {
+	const id = getId(req.params.id);
+	const data = await readData();
+	const commentIndex = id === null ? -1 : data.comments.findIndex((comment) => comment.id === id);
+	if (commentIndex === -1) {
+		return res.status(404).json({ message: 'Comment not found' });
+	}
+
+	const updatedComment = {
+		...data.comments[commentIndex],
+		...req.body,
+		id
+	};
+	const validationError = validateCommentBody(updatedComment);
+	if (validationError) {
+		return res.status(400).json({ message: validationError });
+	}
+
+	updatedComment.author = updatedComment.author.trim();
+	updatedComment.content = updatedComment.content.trim();
+	updatedComment.date = updatedComment.date.trim();
 	data.comments[commentIndex] = updatedComment;
 	await writeData(data);
 	res.status(200).json(updatedComment);

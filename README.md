@@ -13,6 +13,7 @@ Base URL: `http://localhost:3000`
 | GET | `/articles/:id` | Get an article by ID |
 | POST | `/articles` | Add a new article |
 | PUT | `/articles/:id` | Update an article |
+| PATCH | `/articles/:id` | Partially update an article |
 | DELETE | `/articles/:id` | Delete an article |
 
 ## Comment APIs
@@ -23,6 +24,7 @@ Base URL: `http://localhost:3000`
 | GET | `/comments/:id` | Get a comment by ID |
 | POST | `/comments` | Add a new comment |
 | PUT | `/comments/:id` | Update a comment |
+| PATCH | `/comments/:id` | Partially update a comment |
 | DELETE | `/comments/:id` | Delete a comment |
 
 ## Article Comment APIs
@@ -80,6 +82,8 @@ Use `http://localhost:3000` as the base URL in Postman.
 | POST | `/articles/999` | `404 Not Found` because POST does not use an ID |
 | PUT | `/articles/1` | `200 OK` with a valid article body |
 | PUT | `/articles/999` | `404 Not Found` |
+| PATCH | `/articles/1` | `200 OK` with fields to update |
+| PATCH | `/articles/999` | `404 Not Found` |
 | DELETE | `/articles/1` | `204 No Content` |
 | DELETE | `/articles/999` | `404 Not Found` |
 
@@ -95,6 +99,8 @@ Use `http://localhost:3000` as the base URL in Postman.
 | POST | `/comments/999` | `404 Not Found` because POST does not use an ID |
 | PUT | `/comments/1` | `200 OK` with a valid comment body |
 | PUT | `/comments/999` | `404 Not Found` |
+| PATCH | `/comments/1` | `200 OK` with fields to update |
+| PATCH | `/comments/999` | `404 Not Found` |
 | DELETE | `/comments/1` | `204 No Content` |
 | DELETE | `/comments/999` | `404 Not Found` |
 
