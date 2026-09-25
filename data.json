@@ -1,13 +1,6 @@
 {
   "articles": [
     {
-      "id": 1,
-      "title": "Introduction to Node.js",
-      "content": "Node.js is a JavaScript runtime environment.",
-      "author": "Nguyen Van A",
-      "date": "2026-09-01"
-    },
-    {
       "id": 2,
       "title": "Getting Started with Express",
       "content": "Express is a web framework for Node.js.",
@@ -23,13 +16,6 @@
     }
   ],
   "comments": [
-    {
-      "id": 1,
-      "articleId": 1,
-      "author": "Pham Thi D",
-      "content": "This is a useful introduction to Node.js.",
-      "date": "2026-09-04"
-    },
     {
       "id": 2,
       "articleId": 1,
